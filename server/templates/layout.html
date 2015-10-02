@@ -24,13 +24,27 @@
 					<li class="active"><a href="login">home</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
+					{% if not session.get('user_id') %}
 					<li><a href="/login">login</a></li>
-					<li><a href="/logout">logout</a></li>
 					<li><a href="/register">register</a></li>
+					{% else %}
+					<li><p class="navbar-text">Hello, {{ session.get('user_name', 'Nobody') }}!</p></li>
+					<li><a href="#"><span class="glyphicon glyphicon-cog"><span></a></li>
+					<li><a href="/logout">logout</a></li>
+					{% endif %}
 				</ul>
 			</div>
 		</div>
 	</div>
+
+	{% if session.get('user_id') %}
+	<div class="alert alert-info"><strong>User: </strong>{{ session.get('user_id') }}</div>
+	{% endif %}
+
+	{% if error %}
+	<div class="alert alert-warning"><strong>Error: </strong>{{ error }}</div>
+	{% endif %}
+
 	{% block content %}{% endblock %}
 	<!-- end Navbar -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
