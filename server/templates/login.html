@@ -1,8 +1,5 @@
 {% extends "layout.html" %}
 {% block title %}Hello, Rainist!{% endblock %}
-{% block head %}
-<link rel="stylesheet" href="{{ url_for('static',filename='css/login.css') }}">
-{% endblock %}
 {% block content %}
 <div class="container">
   <div class="row">
@@ -31,10 +28,10 @@
 
         <hr>
         <div>
-          <a class="btn btn-facebook" href="" ng-click="loginOauth('facebook')">
+          <a class="btn btn-facebook" href="/auth/facebook">
             <i class="fa fa-facebook"></i> Connect with Facebook
           </a>
-          <a class="btn btn-twitter" href="" ng-click="loginOauth('twitter')">
+          <a class="btn btn-twitter" href="/auth/twitter">
             <i class="fa fa-twitter"></i> Connect with Twitter
           </a>
         </div>

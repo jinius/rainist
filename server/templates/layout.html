@@ -4,6 +4,8 @@
    	<meta charset="utf-8">
 	<title>{% block title %}Rainist{% endblock %}</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" href="{{ url_for('static',filename='css/login.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static',filename='css/font-awesome.min.css') }}">
 	{% block head %}{% endblock %}
 </head>
 <body>
@@ -21,7 +23,7 @@
 			</div>
 			<div collapse="isCollapsed" class="navbar-collapse collapse" id="navbar-main">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="login">home</a></li>
+					<li class="active"><a href="/">home</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					{% if not session.get('user_id') %}
@@ -29,7 +31,8 @@
 					<li><a href="/register">register</a></li>
 					{% else %}
 					<li><p class="navbar-text">Hello, {{ session.get('user_name', 'Nobody') }}!</p></li>
-					<li><a href="#"><span class="glyphicon glyphicon-cog"><span></a></li>
+					<li><a href="/profile">Profile</a></li>
+					<!-- li><a href="#"><span class="glyphicon glyphicon-cog"><span></a></li -->
 					<li><a href="/logout">logout</a></li>
 					{% endif %}
 				</ul>
@@ -38,7 +41,15 @@
 	</div>
 
 	{% if session.get('user_id') %}
-	<div class="alert alert-info"><strong>User: </strong>{{ session.get('user_id') }}</div>
+	<div class="btn-group pull-right">
+		{% if not session.get('facebook_token') %}
+			<a class="btn btn-facebook" href="/auth/facebook"><i class="fa fa-facebook"></i></a>
+		{% endif %}
+		{% if not session.get('twitter_token') %}
+			<a class="btn btn-twitter" href="/auth/twitter"><i class="fa fa-twitter"></i></a>
+		{% endif %}
+	</div>
+	<!-- div class="alert alert-info"><strong>user_id: </strong>{{ session.get('user_id') }}</div -->
 	{% endif %}
 
 	{% if error %}

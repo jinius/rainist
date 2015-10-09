@@ -1,0 +1,66 @@
+{% extends "layout.html" %}
+{% block title %}Hello, Rainist!{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static',filename='css/login.css') }}">
+{% endblock %}
+{% block content %}
+{% if message %}
+<div class="alert alert-info">{{ message }}</div>
+{% endif %}
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12">
+			<h1>Account Settings</h1>
+		</div>
+		<div class="col-sm-12">
+			<form class="form" name="form" action="/info" method="post">
+
+				<div class="form-group">
+					<label>Name</label>
+					<input type="text" name="name" class="form-control" value="{{ name or '' }}" required/>
+				</div>
+
+				<div class="form-group">
+					<label>Email</label>
+					{% if session.get('facebook_token') or session.get('twitter_token') %}
+					<input type="email" name="email" class="form-control" value="{{ email or '' }}" />
+					{% else %}
+					<input type="email" name="email" class="form-control" value="{{ email or '' }}" required/>
+					{% endif %}
+				</div>
+
+				<div class="form-group">
+					<label>Current</label>
+					<input type="password" name="current_pwd" class="form-control" />
+				</div>
+
+				<div class="form-group">
+					<label>New Password</label>
+					<input type="password" name="new_pwd" class="form-control" />
+				</div>
+
+				<div class="form-group">
+					<label>New Password (confirm)</label>
+					<input type="password" name="new_pwd_confirm" class="form-control" />
+				</div>
+
+				<div class="form-group clearfix">
+					<div class="pull-right">
+						<button class="btn btn-primary btn-login" type="submit">Save Changes</button>
+						<a class="btn btn-inverse btn-login" href="/">Cancel</a>
+					</div>
+				</div>
+			</form>
+
+			<div class="panel panel-danger">
+				<div class="panel-heading">Delete account</div>
+				<div class="panel-body">
+					<p>Once you delete your account, it cannot be restored.</p>
+					<a class="btn btn-danger" href="/profile/delete">Delete your account</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<hr>
+</div>
+{% endblock %}
