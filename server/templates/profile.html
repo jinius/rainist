@@ -28,7 +28,8 @@
 					<input type="email" name="email" class="form-control" value="{{ email or '' }}" required/>
 					{% endif %}
 				</div>
-
+ 
+				{% if password %}
 				<div class="form-group">
 					<label>Current</label>
 					<input type="password" name="current_pwd" class="form-control" />
@@ -43,6 +44,7 @@
 					<label>New Password (confirm)</label>
 					<input type="password" name="new_pwd_confirm" class="form-control" />
 				</div>
+				{% endif %}
 
 				<div class="form-group clearfix">
 					<div class="pull-right">

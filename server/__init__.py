@@ -150,6 +150,7 @@ def profile():
 	error = None
 	name = None
 	email = None
+	password = False
 	message = None
 	user_id = session.get('user_id')
 	if not user_id:
@@ -157,6 +158,7 @@ def profile():
 
 	try:
 		user = User.get_profile(user_id)
+		password = True if user.get('pwd_hash') else False
 		if request.method == 'POST':
 			name = request.form.get('name')
 			email = request.form.get('email')
@@ -177,7 +179,8 @@ def profile():
 	except User.Error as e:
 		error = str(e)
 
-	return render_template('profile.html', name=name, email=email, message=message)
+	return render_template('profile.html',
+			name=name, email=email, password=password, message=message)
 
 @app.route('/profile/delete')
 def delete_user():
